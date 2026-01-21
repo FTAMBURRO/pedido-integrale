@@ -1,0 +1,66 @@
+Necesito que generes una app web ULTRA SIMPLE (diseño + código exportable ZIP) para pedidos por WhatsApp de “IntegraLe”.
+Stack: React + TypeScript + Vite + TailwindCSS. Debe compilar y correr con npm install + npm run dev. Lista para deploy en Vercel.
+
+Objetivo:
+UNA SOLA PÁGINA (/pedido) tipo “listado rápido” (no ecommerce, no carrito, no cards) donde el usuario:
+- ve productos en filas
+- ve el precio al lado
+- elige cantidad con botones (-) y (+) y un input numérico
+- ve el total
+- toca “Enviar pedido por WhatsApp” y se abre wa.me con el detalle (items + cantidades + total + datos opcionales)
+
+Diseño (muy al grano):
+- Estilo planilla/lista, minimalista, sin imágenes, sin animaciones.
+- Fondo blanco, tipografía simple, separación clara entre filas.
+- Encabezado fijo con logo texto “IntegraLe” y subtítulo “Pedido por WhatsApp”.
+- Layout responsive: en mobile las columnas se apilan; en desktop 3 columnas (Producto | Precio | Cantidad).
+- Un bloque inferior fijo (sticky) con Total + botón grande “Enviar por WhatsApp”.
+
+Contenido de la lista:
+- Productos agrupados por categoría con separadores (Panes / Keto / Dulces / Combos).
+- Cada fila muestra:
+  - Nombre del producto
+  - Precio (ARS)
+  - Control de cantidad: botón “-”, input, botón “+”, y un botón “Reset” (pone 0)
+- Si cantidad = 0, la fila se ve “apagada” (opacity) pero visible.
+
+Formulario mínimo (arriba o en un modal simple):
+- Nombre (requerido)
+- Entrega: Retiro / Envío (select)
+- Dirección (solo si Envío)
+- Notas (opcional)
+
+Lógica:
+- Productos en src/data/products.ts (array tipado).
+- Estado del pedido con useReducer:
+  - increment(id), decrement(id), setQty(id, qty), reset(id), clearAll()
+- Total calculado en tiempo real.
+- Botón “Enviar por WhatsApp” genera el mensaje y abre:
+  https://wa.me/549XXXXXXXXXX?text=...
+- El mensaje debe estar bien formateado:
+  "Hola! Soy {nombre}. Quiero pedir:
+   - {qty} x {producto} ($ {precio})
+   Total: $ {total}
+   Entrega: {retiro/envio}
+   Dirección: {si aplica}
+   Notas: {si aplica}"
+
+Estructura del proyecto:
+- src/pages/PedidoPage.tsx (todo el layout)
+- src/components/RowItem.tsx (fila producto)
+- src/components/OrderSummaryBar.tsx (barra total + botón)
+- src/data/products.ts
+- src/types.ts
+- src/utils/money.ts (formato ARS)
+- src/utils/whatsapp.ts (generar texto + encodeURIComponent)
+- README.md con instrucciones + cómo cambiar el número de WhatsApp
+
+Evitar:
+- No estilo “carrito” ni “cards”.
+- No imágenes.
+- No backend.
+- No librerías pesadas.
+- No múltiples páginas.
+
+Entrega:
+Generar el diseño y el código listo para descargar ZIP, correr local y desplegar en Vercel.
