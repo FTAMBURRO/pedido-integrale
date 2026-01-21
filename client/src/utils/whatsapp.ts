@@ -23,8 +23,7 @@ ${itemsList}
 
 *Total: ${formatMoney(total)}*
 
-Entrega: ${state.deliveryMethod === 'delivery' ? 'Envío a domicilio' : 'Retiro por local'}
-${state.deliveryMethod === 'delivery' ? `Dirección: ${state.address}` : ''}
+Entrega: A coordinar
 ${state.notes ? `Notas: ${state.notes}` : ''}`;
 
   return `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(message)}`;
