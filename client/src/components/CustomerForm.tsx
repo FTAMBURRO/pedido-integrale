@@ -1,9 +1,8 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import { OrderState } from "@shared/schema";
-import { User, MapPin, NotebookPen } from "lucide-react";
+import { User, NotebookPen } from "lucide-react";
 
 interface CustomerFormProps {
   state: OrderState;
@@ -31,36 +30,10 @@ export function CustomerForm({ state, dispatch }: CustomerFormProps) {
           <Label className="flex items-center gap-2 text-muted-foreground font-medium">
             Método de Entrega
           </Label>
-          <RadioGroup 
-            defaultValue="pickup" 
-            value={state.deliveryMethod}
-            onValueChange={(val) => dispatch({ type: 'SET_FIELD', field: 'deliveryMethod', value: val })}
-            className="flex gap-4"
-          >
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="pickup" id="pickup" />
-              <Label htmlFor="pickup" className="font-normal cursor-pointer">Retiro por local</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="delivery" id="delivery" />
-              <Label htmlFor="delivery" className="font-normal cursor-pointer">Envío a domicilio</Label>
-            </div>
-          </RadioGroup>
-        </div>
-      </div>
-
-      <div className={state.deliveryMethod === 'delivery' ? 'animate-in fade-in slide-in-from-top-2 duration-300' : 'hidden'}>
-        <div className="space-y-2">
-          <Label htmlFor="address" className="flex items-center gap-2 text-muted-foreground font-medium">
-            <MapPin className="w-4 h-4" /> Dirección de envío
-          </Label>
-          <Input 
-            id="address"
-            placeholder="Calle, Número, Piso, Depto..."
-            value={state.address}
-            onChange={(e) => dispatch({ type: 'SET_FIELD', field: 'address', value: e.target.value })}
-            className="bg-muted/30 border-border/50 focus:bg-white transition-all h-11"
-          />
+          <div className="flex items-center space-x-2 px-3 py-2 bg-muted/30 rounded-lg border border-border/50">
+            <input type="radio" id="coordinar" name="delivery" checked disabled className="cursor-not-allowed" />
+            <Label htmlFor="coordinar" className="font-normal cursor-not-allowed">A coordinar</Label>
+          </div>
         </div>
       </div>
 

@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 const initialState: OrderState = {
   items: {},
   customerName: "",
-  deliveryMethod: "pickup",
+  deliveryMethod: "delivery",
   address: "",
   notes: "",
 };
@@ -91,16 +91,6 @@ export default function PedidoPage() {
         variant: "destructive",
       });
       document.getElementById("name")?.focus();
-      return;
-    }
-    
-    if (state.deliveryMethod === 'delivery' && !state.address.trim()) {
-      toast({
-        title: "Falta dirección",
-        description: "Para envíos a domicilio necesitamos una dirección.",
-        variant: "destructive",
-      });
-      document.getElementById("address")?.focus();
       return;
     }
 
