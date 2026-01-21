@@ -17,22 +17,5 @@ export async function registerRoutes(
   return httpServer;
 }
 
-// Simple seed function to populate DB if empty (optional, since frontend uses static data)
-async function seedDatabase() {
-  const existing = await storage.getProducts();
-  if (existing.length === 0) {
-    const seedProducts = [
-      { name: "Pan de Masa Madre", category: "Panes", price: 3500 },
-      { name: "Pan Integral", category: "Panes", price: 3200 },
-      { name: "Brownie Keto", category: "Keto", price: 2500 },
-      { name: "Alfajor de Maicena", category: "Dulces", price: 1200 },
-      { name: "Combo Desayuno", category: "Combos", price: 5500 },
-    ];
-    for (const p of seedProducts) {
-      await storage.createProduct(p);
-    }
-  }
-}
-
-// Call seed in background
-seedDatabase().catch(console.error);
+// Seed function is optional since we use in-memory storage with static data
+// If you add DATABASE_URL later, products will be auto-seeded from @/data/products.ts

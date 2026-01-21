@@ -4,11 +4,13 @@ import * as schema from "@shared/schema";
 
 const { Pool } = pg;
 
-if (!process.env.DATABASE_URL) {
-  throw new Error(
-    "DATABASE_URL must be set. Did you forget to provision a database?",
-  );
-}
+export const databaseUrl = process.env.DATABASE_URL;
+export const hasDatabase = Boolean(databaseUrl);
 
-export const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-export const db = drizzle(pool, { schema });
+// Only initialize Postgres when a DATABASE_URL is provided. This lets the app
+// run in a lightweight, in-memory mode for local demos.
+export const pool = hasDatabase
+  ? new Pool({ connectionString: databaseUrl })
+  : null;
+
+export const db = hasDatabase ? drizzle(pool!, { schema }) : null;

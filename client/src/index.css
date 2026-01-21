@@ -8,28 +8,28 @@
   --font-sans: 'DM Sans', sans-serif;
   --font-display: 'Space Grotesk', sans-serif;
 
-  /* Clean, crisp, professional palette */
-  --background: 0 0% 100%;
-  --foreground: 222 47% 11%;
+  /* Warm, artisanal bakery palette - Brown & Beige */
+  --background: 38 40% 97%; /* Beige claro */
+  --foreground: 30 30% 15%; /* Marrón oscuro */
   
-  --primary: 142 76% 36%; /* WhatsApp-ish Green */
-  --primary-foreground: 355.7 100% 97.3%;
+  --primary: 27 81% 50%; /* Marrón cálido panadería */
+  --primary-foreground: 0 0% 98%;
   
-  --secondary: 210 40% 96.1%;
-  --secondary-foreground: 222.2 47.4% 11.2%;
+  --secondary: 40 60% 90%; /* Beige claro */
+  --secondary-foreground: 30 30% 20%;
   
-  --muted: 210 40% 96.1%;
-  --muted-foreground: 215.4 16.3% 46.9%;
+  --muted: 30 20% 85%; /* Gris cálido */
+  --muted-foreground: 30 20% 45%;
   
-  --accent: 210 40% 96.1%;
-  --accent-foreground: 222.2 47.4% 11.2%;
+  --accent: 27 81% 50%; /* Match primary */
+  --accent-foreground: 0 0% 98%;
   
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 210 40% 98%;
 
-  --border: 214.3 31.8% 91.4%;
-  --input: 214.3 31.8% 91.4%;
-  --ring: 142 76% 36%;
+  --border: 30 25% 90%; /* Borde marrón suave */
+  --input: 40 30% 95%; /* Input beige */
+  --ring: 27 81% 50%;
   
   --radius: 0.5rem;
 }

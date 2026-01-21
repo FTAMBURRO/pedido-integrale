@@ -1,7 +1,7 @@
 import { OrderState, Product } from "@shared/schema";
 import { formatMoney } from "./money";
 
-const PHONE_NUMBER = "5491112345678"; // Replace with actual number if provided
+const PHONE_NUMBER = "+5493446534509"; // IntegraLe WhatsApp
 
 export function generateWhatsAppLink(
   state: OrderState, 
