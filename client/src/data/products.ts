@@ -14,6 +14,7 @@ export const PRODUCTS: Product[] = [
   { id: 9, name: "Hamburguesas Legumbres (x6)", category: "Integrales - Saladas", price: 8500, isActive: true },
 
   { id: 10, name: "Pan de Nuez grande (900g)", category: "Integrales - Saladas", price: 7000, isActive: true },
+  { id: 63, name: "Pan de Harina de Garbanzo (x6)", category: "Integrales - Saladas", price: 8000, isActive: true },
   { id: 11, name: "Pan Integral grande con semillas (900g)", category: "Integrales - Saladas", price: 6000, isActive: true },
   { id: 12, name: "Pan saborizado chico (x12)", category: "Integrales - Saladas", price: 8000, isActive: true },
   { id: 13, name: "Pan tortuga mediano (x6)", category: "Integrales - Saladas", price: 8000, isActive: true },
