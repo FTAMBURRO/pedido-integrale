@@ -56,7 +56,7 @@ export const PRODUCTS: Product[] = [
   { id: 38, name: "Pan árabe (x3)", category: "Keto - Saladas", price: 5000, isActive: true },
   { id: 39, name: "Pan árabe (x6)", category: "Keto - Saladas", price: 8500, isActive: true },
   { id: 40, name: "Ñoquis Calabaza o Espinaca (500g)", category: "Keto - Saladas", price: 15000, isActive: true },
-  { id: 41, name: "Pan de Almendras (550g)", category: "Keto - Saladas", price: 8500, isActive: true },
+  { id: 41, name: "Pan de Almendras (700g)", category: "Keto - Saladas", price: 8500, isActive: true },
   { id: 42, name: "Pan tortuga (x6)", category: "Keto - Saladas", price: 8500, isActive: true },
   { id: 43, name: "Pizzetas (x6)", category: "Keto - Saladas", price: 8500, isActive: true },
 
