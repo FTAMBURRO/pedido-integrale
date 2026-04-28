@@ -37,8 +37,6 @@ export const PRODUCTS: Product[] = [
   { id: 25, name: "Pastafrola individual (x1) (Memb./Bat./Ricot.)", category: "Integrales - Dulces", price: 7000, isActive: true },
 
   { id: 26, name: "Pepas de Membrillo y Batata (x12)", category: "Integrales - Dulces", price: 10000, isActive: true },
-  { id: 27, name: "Trufas de chocolate s/azúcar (x4)", category: "Integrales - Dulces", price: 6000, isActive: true },
-
   { id: 28, name: "Nueces rellenas de DDL bañadas en choc. (x6)", category: "Integrales - Dulces", price: 7000, isActive: true },
 
   // Keto - Saladas (Harina de almendras)
