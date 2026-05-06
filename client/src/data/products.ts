@@ -24,7 +24,7 @@ export const PRODUCTS: Product[] = [
   { id: 16, name: "Scones de Queso (x8)", category: "Integrales - Saladas", price: 6000, isActive: true },
 
   { id: 17, name: "Tapa para tacos/fajitas (x6)", category: "Integrales - Saladas", price: 7000, isActive: true },
-  { id: 18, name: "Tartas individuales", category: "Integrales - Saladas", price: 6500, isActive: true },
+  { id: 18, name: "Tartas individuales", category: "Integrales - Saladas", price: 7000, isActive: true },
 
   // Integrales - Dulces
   { id: 19, name: "Bon o Bon saludable (x4)", category: "Integrales - Dulces", price: 6500, isActive: true },
@@ -59,7 +59,7 @@ export const PRODUCTS: Product[] = [
   { id: 43, name: "Pizzetas (x6)", category: "Keto - Saladas", price: 8500, isActive: true },
 
   { id: 44, name: "Scones de Queso (x8)", category: "Keto - Saladas", price: 7000, isActive: true },
-  { id: 45, name: "Tartas individuales", category: "Keto - Saladas", price: 7500, isActive: true },
+  { id: 45, name: "Tartas individuales", category: "Keto - Saladas", price: 8000, isActive: true },
 
   // Keto - Dulces
   { id: 46, name: "Alfajor relleno de DDL s/azúcar o ganache de chocolate s/azúcar (x1)", category: "Keto - Dulces", price: 3500, isActive: true },
