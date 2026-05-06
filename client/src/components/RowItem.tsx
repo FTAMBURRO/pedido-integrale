@@ -19,14 +19,14 @@ interface RowItemProps {
 
 export function RowItem({ product, quantity, flavors, flavorQuantities, onIncrement, onDecrement, onFlavorIncrement, onFlavorDecrement }: RowItemProps) {
   const hasFlavors = !!flavors?.length;
-  const [selectedFlavor, setSelectedFlavor] = useState<string>(flavors?.[0] || "");
+  const [selectedFlavor, setSelectedFlavor] = useState<string | undefined>(flavors?.[0]);
 
   useEffect(() => {
     if (!flavors?.length) {
-      setSelectedFlavor("");
+      setSelectedFlavor(undefined);
       return;
     }
-    if (!flavors.includes(selectedFlavor)) {
+    if (!selectedFlavor || !flavors.includes(selectedFlavor)) {
       setSelectedFlavor(flavors[0]);
     }
   }, [flavors, selectedFlavor]);
@@ -34,9 +34,14 @@ export function RowItem({ product, quantity, flavors, flavorQuantities, onIncrem
   const totalFlavorQty = hasFlavors
     ? Object.values(flavorQuantities).reduce((a, b) => a + b, 0)
     : 0;
-  const selectedFlavorQty = hasFlavors && selectedFlavor
+  const selectedFlavorQty = hasFlavors && !!selectedFlavor
     ? (flavorQuantities[selectedFlavor] || 0)
     : 0;
+
+  const selectedFlavorLines = hasFlavors
+    ? Object.entries(flavorQuantities).filter(([, qty]) => qty > 0)
+    : [];
+
   const effectiveQty = hasFlavors ? totalFlavorQty : quantity;
   const hasQuantity = effectiveQty > 0;
 
@@ -86,47 +91,75 @@ export function RowItem({ product, quantity, flavors, flavorQuantities, onIncrem
             </div>
           </div>
         )}
-
       </div>
 
       {/* Selector + contador único por sabor */}
       {hasFlavors && (
-        <div className="mt-3 ml-2 flex flex-col sm:flex-row sm:items-center gap-3">
-          <div className="w-full sm:w-80">
-            <Select value={selectedFlavor} onValueChange={setSelectedFlavor}>
-              <SelectTrigger className="h-9">
-                <SelectValue placeholder="Elegí un sabor" />
-              </SelectTrigger>
-              <SelectContent>
-                {flavors!.map((flavor) => (
-                  <SelectItem key={flavor} value={flavor}>
-                    {flavor}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+        <div className="mt-3 ml-2 flex flex-col gap-3">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+            <div className="w-full sm:w-80">
+              <Select value={selectedFlavor} onValueChange={setSelectedFlavor}>
+                <SelectTrigger className="h-9 bg-popover border-border">
+                  <SelectValue placeholder="Elegí un sabor" />
+                </SelectTrigger>
+                <SelectContent className="bg-popover text-popover-foreground border-border shadow-md z-50">
+                  {flavors!.map((flavor) => (
+                    <SelectItem key={flavor} value={flavor}>
+                      {flavor}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="flex items-center bg-secondary/50 rounded-full p-0.5 border border-border/50 w-fit">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-7 w-7 rounded-full hover:bg-white hover:text-destructive hover:shadow-sm transition-all"
+                onClick={() => selectedFlavor && onFlavorDecrement(selectedFlavor)}
+                disabled={!selectedFlavor || selectedFlavorQty === 0}
+              >
+                <Minus className="h-3 w-3" />
+              </Button>
+              <div className="w-8 text-center font-mono font-bold text-base tabular-nums leading-none">
+                {selectedFlavorQty}
+              </div>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-7 w-7 rounded-full hover:bg-white hover:text-primary hover:shadow-sm transition-all"
+                onClick={() => selectedFlavor && onFlavorIncrement(selectedFlavor)}
+                disabled={!selectedFlavor}
+              >
+                <Plus className="h-3 w-3" />
+              </Button>
+            </div>
+
+            {hasQuantity && (
+              <span className="text-sm font-mono text-primary font-semibold shrink-0">
+                {totalFlavorQty} ud. — Sub: {formatMoney(product.price * totalFlavorQty)}
+              </span>
+            )}
+
           </div>
 
-          <div className="flex items-center bg-secondary/50 rounded-full p-0.5 border border-border/50 w-fit">
-            <Button variant="ghost" size="icon"
-              className="h-7 w-7 rounded-full hover:bg-white hover:text-destructive hover:shadow-sm transition-all"
-              onClick={() => selectedFlavor && onFlavorDecrement(selectedFlavor)}
-              disabled={!selectedFlavor || selectedFlavorQty === 0}>
-              <Minus className="h-3 w-3" />
-            </Button>
-            <div className="w-8 text-center font-mono font-bold text-base tabular-nums leading-none">{selectedFlavorQty}</div>
-            <Button variant="ghost" size="icon"
-              className="h-7 w-7 rounded-full hover:bg-white hover:text-primary hover:shadow-sm transition-all"
-              onClick={() => selectedFlavor && onFlavorIncrement(selectedFlavor)}
-              disabled={!selectedFlavor}>
-              <Plus className="h-3 w-3" />
-            </Button>
-          </div>
-
-          {hasQuantity && (
-            <span className="text-sm font-mono text-primary font-semibold shrink-0">
-              {totalFlavorQty} ud. — Sub: {formatMoney(product.price * totalFlavorQty)}
-            </span>
+          {selectedFlavorLines.length > 0 && (
+            <div className="space-y-1.5">
+              {selectedFlavorLines.map(([flavor, qty]) => (
+                <div key={flavor} className="flex items-center justify-between gap-2 text-sm text-foreground/90">
+                  <span>• {qty}x {flavor}</span>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-6 w-6 rounded-full hover:bg-white hover:text-destructive"
+                    onClick={() => onFlavorDecrement(flavor)}
+                  >
+                    <Minus className="h-3 w-3" />
+                  </Button>
+                </div>
+              ))}
+            </div>
           )}
         </div>
       )}
