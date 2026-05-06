@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
 import { Product } from "@shared/schema";
 import { formatMoney } from "@/utils/money";
 import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Minus, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -17,8 +19,23 @@ interface RowItemProps {
 
 export function RowItem({ product, quantity, flavors, flavorQuantities, onIncrement, onDecrement, onFlavorIncrement, onFlavorDecrement }: RowItemProps) {
   const hasFlavors = !!flavors?.length;
+  const [selectedFlavor, setSelectedFlavor] = useState<string>(flavors?.[0] || "");
+
+  useEffect(() => {
+    if (!flavors?.length) {
+      setSelectedFlavor("");
+      return;
+    }
+    if (!flavors.includes(selectedFlavor)) {
+      setSelectedFlavor(flavors[0]);
+    }
+  }, [flavors, selectedFlavor]);
+
   const totalFlavorQty = hasFlavors
     ? Object.values(flavorQuantities).reduce((a, b) => a + b, 0)
+    : 0;
+  const selectedFlavorQty = hasFlavors && selectedFlavor
+    ? (flavorQuantities[selectedFlavor] || 0)
     : 0;
   const effectiveQty = hasFlavors ? totalFlavorQty : quantity;
   const hasQuantity = effectiveQty > 0;
@@ -70,48 +87,47 @@ export function RowItem({ product, quantity, flavors, flavorQuantities, onIncrem
           </div>
         )}
 
-        {/* Resumen total cuando hay sabores */}
-        {hasFlavors && hasQuantity && (
-          <span className="text-sm font-mono text-primary font-semibold shrink-0">
-            {totalFlavorQty} ud. — Sub: {formatMoney(product.price * totalFlavorQty)}
-          </span>
-        )}
       </div>
 
-      {/* Sub-contadores por sabor */}
+      {/* Selector + contador único por sabor */}
       {hasFlavors && (
-        <div className="mt-3 ml-2 space-y-2">
-          {flavors!.map((flavor) => {
-            const qty = flavorQuantities[flavor] || 0;
-            return (
-              <div key={flavor} className="flex items-center justify-between gap-2">
-                <span className={cn(
-                  "text-sm flex-1",
-                  qty > 0 ? "text-foreground font-medium" : "text-muted-foreground"
-                )}>
-                  {flavor}
-                  {qty > 0 && (
-                    <span className="ml-2 text-xs font-mono text-primary">
-                      ({formatMoney(product.price * qty)})
-                    </span>
-                  )}
-                </span>
-                <div className="flex items-center bg-secondary/50 rounded-full p-0.5 border border-border/50">
-                  <Button variant="ghost" size="icon"
-                    className="h-7 w-7 rounded-full hover:bg-white hover:text-destructive hover:shadow-sm transition-all"
-                    onClick={() => onFlavorDecrement(flavor)} disabled={qty === 0}>
-                    <Minus className="h-3 w-3" />
-                  </Button>
-                  <div className="w-8 text-center font-mono font-bold text-base tabular-nums leading-none">{qty}</div>
-                  <Button variant="ghost" size="icon"
-                    className="h-7 w-7 rounded-full hover:bg-white hover:text-primary hover:shadow-sm transition-all"
-                    onClick={() => onFlavorIncrement(flavor)}>
-                    <Plus className="h-3 w-3" />
-                  </Button>
-                </div>
-              </div>
-            );
-          })}
+        <div className="mt-3 ml-2 flex flex-col sm:flex-row sm:items-center gap-3">
+          <div className="w-full sm:w-80">
+            <Select value={selectedFlavor} onValueChange={setSelectedFlavor}>
+              <SelectTrigger className="h-9">
+                <SelectValue placeholder="Elegí un sabor" />
+              </SelectTrigger>
+              <SelectContent>
+                {flavors!.map((flavor) => (
+                  <SelectItem key={flavor} value={flavor}>
+                    {flavor}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="flex items-center bg-secondary/50 rounded-full p-0.5 border border-border/50 w-fit">
+            <Button variant="ghost" size="icon"
+              className="h-7 w-7 rounded-full hover:bg-white hover:text-destructive hover:shadow-sm transition-all"
+              onClick={() => selectedFlavor && onFlavorDecrement(selectedFlavor)}
+              disabled={!selectedFlavor || selectedFlavorQty === 0}>
+              <Minus className="h-3 w-3" />
+            </Button>
+            <div className="w-8 text-center font-mono font-bold text-base tabular-nums leading-none">{selectedFlavorQty}</div>
+            <Button variant="ghost" size="icon"
+              className="h-7 w-7 rounded-full hover:bg-white hover:text-primary hover:shadow-sm transition-all"
+              onClick={() => selectedFlavor && onFlavorIncrement(selectedFlavor)}
+              disabled={!selectedFlavor}>
+              <Plus className="h-3 w-3" />
+            </Button>
+          </div>
+
+          {hasQuantity && (
+            <span className="text-sm font-mono text-primary font-semibold shrink-0">
+              {totalFlavorQty} ud. — Sub: {formatMoney(product.price * totalFlavorQty)}
+            </span>
+          )}
         </div>
       )}
     </div>
