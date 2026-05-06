@@ -24,7 +24,8 @@ export interface OrderItem {
 }
 
 export interface OrderState {
-  items: Record<number, number>; // productId -> quantity
+  items: Record<number, number>; // productId -> quantity (sin sabores)
+  flavorItems: Record<number, Record<string, number>>; // productId -> sabor -> cantidad
   customerName: string;
   deliveryMethod: "pickup" | "delivery";
   address: string;
@@ -37,4 +38,6 @@ export type OrderAction =
   | { type: 'SET_QTY'; id: number; qty: number }
   | { type: 'RESET'; id: number }
   | { type: 'CLEAR_ALL' }
-  | { type: 'SET_FIELD'; field: keyof Omit<OrderState, 'items'>; value: string };
+  | { type: 'SET_FIELD'; field: keyof Omit<OrderState, 'items' | 'flavorItems'>; value: string }
+  | { type: 'INCREMENT_FLAVOR'; id: number; flavor: string }
+  | { type: 'DECREMENT_FLAVOR'; id: number; flavor: string };

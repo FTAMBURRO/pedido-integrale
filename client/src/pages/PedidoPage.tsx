@@ -1,6 +1,7 @@
 import { useReducer } from "react";
 import { useProducts } from "@/hooks/use-products";
 import { OrderAction, OrderState } from "@shared/schema";
+import { PRODUCT_FLAVORS } from "@/data/flavors";
 import { RowItem } from "@/components/RowItem";
 import { OrderSummaryBar } from "@/components/OrderSummaryBar";
 import { CustomerForm } from "@/components/CustomerForm";
@@ -11,6 +12,7 @@ import { Button } from "@/components/ui/button";
 
 const initialState: OrderState = {
   items: {},
+  flavorItems: {},
   customerName: "",
   deliveryMethod: "delivery",
   address: "",
@@ -48,7 +50,16 @@ function orderReducer(state: OrderState, action: OrderAction): OrderState {
     case 'RESET':
       return { ...state, items: { ...state.items, [action.id]: 0 } };
     case 'CLEAR_ALL':
-      return { ...state, items: {} };
+      return { ...state, items: {}, flavorItems: {} };
+    case 'INCREMENT_FLAVOR': {
+      const prev = state.flavorItems[action.id]?.[action.flavor] || 0;
+      return { ...state, flavorItems: { ...state.flavorItems, [action.id]: { ...(state.flavorItems[action.id] || {}), [action.flavor]: prev + 1 } } };
+    }
+    case 'DECREMENT_FLAVOR': {
+      const cur = state.flavorItems[action.id]?.[action.flavor] || 0;
+      if (cur <= 0) return state;
+      return { ...state, flavorItems: { ...state.flavorItems, [action.id]: { ...(state.flavorItems[action.id] || {}), [action.flavor]: cur - 1 } } };
+    }
     case 'SET_FIELD':
       return { ...state, [action.field]: action.value };
     default:
@@ -77,11 +88,17 @@ export default function PedidoPage() {
   
   // Calculate totals
   const total = products.reduce((acc, product) => {
-    const qty = state.items[product.id] || 0;
-    return acc + (product.price * qty);
+    if (PRODUCT_FLAVORS[product.id]) {
+      const flavorQty = Object.values(state.flavorItems[product.id] || {}).reduce((a, b) => a + b, 0);
+      return acc + product.price * flavorQty;
+    }
+    return acc + product.price * (state.items[product.id] || 0);
   }, 0);
-  
-  const itemCount = Object.values(state.items).reduce((a, b) => a + b, 0);
+
+  const itemCount = [
+    ...Object.entries(state.items).filter(([id]) => !PRODUCT_FLAVORS[Number(id)]).map(([, q]) => q),
+    ...Object.values(state.flavorItems).flatMap(f => Object.values(f)),
+  ].reduce((a, b) => a + b, 0);
 
   const handleSend = () => {
     if (!state.customerName.trim()) {
@@ -157,8 +174,12 @@ export default function PedidoPage() {
                         key={product.id}
                         product={product}
                         quantity={state.items[product.id] || 0}
+                        flavors={PRODUCT_FLAVORS[product.id]}
+                        flavorQuantities={state.flavorItems[product.id] || {}}
                         onIncrement={() => dispatch({ type: 'INCREMENT', id: product.id })}
                         onDecrement={() => dispatch({ type: 'DECREMENT', id: product.id })}
+                        onFlavorIncrement={(flavor) => dispatch({ type: 'INCREMENT_FLAVOR', id: product.id, flavor })}
+                        onFlavorDecrement={(flavor) => dispatch({ type: 'DECREMENT_FLAVOR', id: product.id, flavor })}
                       />
                     ))}
                 </div>
