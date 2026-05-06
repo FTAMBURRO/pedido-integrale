@@ -49,7 +49,7 @@ export function RowItem({ product, quantity, flavors, flavorQuantities, onIncrem
     <div
       className={cn(
         "group flex flex-col py-4 border-b border-border last:border-0 transition-all duration-200",
-        !hasQuantity && "opacity-60 hover:opacity-100"
+        !hasQuantity && !hasFlavors && "opacity-60 hover:opacity-100"
       )}
     >
       {/* Fila principal */}
@@ -99,10 +99,10 @@ export function RowItem({ product, quantity, flavors, flavorQuantities, onIncrem
           <div className="flex flex-col sm:flex-row sm:items-center gap-3">
             <div className="w-full sm:w-80">
               <Select value={selectedFlavor} onValueChange={setSelectedFlavor}>
-                <SelectTrigger className="h-9 bg-popover border-border">
+                <SelectTrigger className="h-9 bg-background border-border opacity-100 ring-1 ring-border/70 focus:ring-2 focus:ring-primary/40">
                   <SelectValue placeholder="Elegí un sabor" />
                 </SelectTrigger>
-                <SelectContent className="bg-popover text-popover-foreground border-border shadow-md z-50">
+                <SelectContent className="bg-background text-foreground border-border shadow-md z-50 opacity-100 backdrop-blur-none ring-1 ring-border/70">
                   {flavors!.map((flavor) => (
                     <SelectItem key={flavor} value={flavor}>
                       {flavor}
