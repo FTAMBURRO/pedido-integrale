@@ -80,7 +80,7 @@ export const PRODUCTS: Product[] = [
   { id: 57, name: "Pan Dulce (350g)", category: "Keto - Dulces", price: 12000, isActive: true },
   { id: 58, name: "Pepas de DDL s/azúcar (x12)", category: "Keto - Dulces", price: 12000, isActive: true },
 
-  { id: 59, name: "Rogel keto (1200g/1300g)", category: "Keto - Dulces", price: 35000, isActive: true },
+  { id: 59, name: "Rogel keto (1200g/1300g)", category: "Keto - Dulces", price: 40000, isActive: true },
   { id: 60, name: "Mini rogel tipo alfajor bañado en choco.", category: "Keto - Dulces", price: 5000, isActive: true },
 
   { id: 61, name: "Mini rogel sin baño", category: "Keto - Dulces", price: 4500, isActive: true },
