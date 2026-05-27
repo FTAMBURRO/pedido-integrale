@@ -58,6 +58,9 @@ export const PRODUCTS: Product[] = [
   { id: 42, name: "Pan tortuga (x6)", category: "Keto - Saladas", price: 8500, isActive: true },
   { id: 43, name: "Pizzetas (x6)", category: "Keto - Saladas", price: 8500, isActive: true },
 
+  { id: 64, name: "Bagels (x3)", category: "Keto - Saladas", price: 7000, isActive: true },
+  { id: 65, name: "Bagels (x6)", category: "Keto - Saladas", price: 12000, isActive: true },
+
   { id: 44, name: "Scones de Queso (x8)", category: "Keto - Saladas", price: 7000, isActive: true },
   { id: 45, name: "Tartas individuales", category: "Keto - Saladas", price: 8000, isActive: true },
 
