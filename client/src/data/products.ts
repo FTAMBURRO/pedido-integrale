@@ -34,7 +34,7 @@ export const PRODUCTS: Product[] = [
   { id: 23, name: "Muffins de Mandarina (x6)", category: "Integrales - Dulces", price: 8000, isActive: true },
 
   { id: 24, name: "Pancakes (x4)", category: "Integrales - Dulces", price: 5000, isActive: true },
-  { id: 25, name: "Pastafrola individual (x1) (Memb./Bat./Ricot.)", category: "Integrales - Dulces", price: 7000, isActive: true },
+  { id: 25, name: "Pastafrola individual (x1) (Memb./Bat./Ricot.)", category: "Integrales - Dulces", price: 10000, isActive: true },
 
   { id: 26, name: "Pepas de Membrillo y Batata (x12)", category: "Integrales - Dulces", price: 10000, isActive: true },
   { id: 28, name: "Nueces rellenas de DDL bañadas en choc. (x6)", category: "Integrales - Dulces", price: 7000, isActive: true },
@@ -81,11 +81,11 @@ export const PRODUCTS: Product[] = [
   { id: 56, name: "Pancakes (x4)", category: "Keto - Dulces", price: 7500, isActive: true },
 
   { id: 57, name: "Pan Dulce (350g)", category: "Keto - Dulces", price: 12000, isActive: true },
-  { id: 58, name: "Pepas de DDL s/azúcar (x12)", category: "Keto - Dulces", price: 12000, isActive: true },
+  { id: 58, name: "Pepas de DDL s/azúcar (x12)", category: "Keto - Dulces", price: 15000, isActive: true },
 
   { id: 59, name: "Rogel keto (1200g/1300g)", category: "Keto - Dulces", price: 40000, isActive: true },
   { id: 60, name: "Mini rogel tipo alfajor bañado en choco.", category: "Keto - Dulces", price: 5000, isActive: true },
 
   { id: 61, name: "Mini rogel sin baño", category: "Keto - Dulces", price: 4500, isActive: true },
-  { id: 62, name: "Tarta de coco individual", category: "Keto - Dulces", price: 10000, isActive: true },
+  { id: 62, name: "Tarta de coco individual", category: "Keto - Dulces", price: 14000, isActive: true },
 ];
