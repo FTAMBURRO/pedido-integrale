@@ -27,7 +27,7 @@ export const PRODUCTS: Product[] = [
   { id: 18, name: "Tartas individuales", category: "Integrales - Saladas", price: 8000, isActive: true },
 
   // Integrales - Dulces
-  { id: 19, name: "Bon o Bon saludable (x4)", category: "Integrales - Dulces", price: 6500, isActive: true },
+  { id: 19, name: "Bon o Bon saludable (x4)", category: "Integrales - Dulces", price: 7000, isActive: true },
   { id: 20, name: "Brownie saludable (1 porción)", category: "Integrales - Dulces", price: 4000, isActive: true },
   { id: 21, name: "Budín de Manzana (450g)", category: "Integrales - Dulces", price: 9000, isActive: true },
   { id: 22, name: "Carrot Cake", category: "Integrales - Dulces", price: 9000, isActive: true },
