@@ -130,7 +130,7 @@ export default function PedidoPage() {
           <Button
             variant="outline"
             size="sm"
-            onClick={() => window.location.href = "https://integralevg.com.ar/catalogo-panaderia-keto-integral-gualeguaychu/"}
+            onClick={() => window.location.href = "https://www.integralevg.com.ar/catalogo"}
             className="rounded-lg"
           >
             Volver al catálogo
