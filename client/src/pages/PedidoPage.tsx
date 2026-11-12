@@ -6,7 +6,7 @@ import { RowItem } from "@/components/RowItem";
 import { OrderSummaryBar } from "@/components/OrderSummaryBar";
 import { CustomerForm } from "@/components/CustomerForm";
 import { generateWhatsAppLink } from "@/utils/whatsapp";
-import { Loader2, ShoppingBag, ChevronLeft } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 
@@ -112,7 +112,11 @@ export default function PedidoPage() {
     }
 
     const link = generateWhatsAppLink(state, products, total);
-    window.open(link, '_blank');
+    const win = window.open(link, "_blank");
+    // Si el navegador bloqueó la ventana emergente, abrimos en la misma pestaña
+    if (!win) {
+      window.location.href = link;
+    }
   };
 
   return (

@@ -1,12 +1,12 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { OrderState } from "@shared/schema";
+import { OrderState, OrderAction } from "@shared/schema";
 import { User, NotebookPen } from "lucide-react";
 
 interface CustomerFormProps {
   state: OrderState;
-  dispatch: React.Dispatch<any>;
+  dispatch: React.Dispatch<OrderAction>;
 }
 
 export function CustomerForm({ state, dispatch }: CustomerFormProps) {

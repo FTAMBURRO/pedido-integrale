@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { formatMoney } from "@/utils/money";
-import { ShoppingBag, Send, X } from "lucide-react";
+import { Send, X } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 
 interface OrderSummaryBarProps {
